@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './CandidateForm.css'; 
 
 const CandidateForm = () => {
   const [candidate, setCandidate] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    phoneNumber: '',
-    callTimeInterval: '',
-    linkedInUrl: '',
+    phone: '',
+    callAvailability: '',
+    linkedinUrl: '',
     githubUrl: '',
     freeTextComment: ''
   });
@@ -26,11 +27,7 @@ const CandidateForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(candidate)
       const response = await axios.post('http://localhost:3001/api/candidates/create', candidate);
-      console.log(response);
-      console.log(response.data);
-      console.log(response.data.message);
       setMessage(response.data.message);
     } catch (error) {
       setMessage(error.response.data.error);
@@ -38,43 +35,45 @@ const CandidateForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="form-container">
+      
+      <form onSubmit={handleSubmit} className="candidate-form">
+      <h1>Apply Now</h1>
+        <div className="form-group">
           <label>First Name</label>
           <input name="firstName" value={candidate.firstName} onChange={handleChange} required />
         </div>
-        <div>
+        <div className="form-group">
           <label>Last Name</label>
           <input name="lastName" value={candidate.lastName} onChange={handleChange} required />
         </div>
-        <div>
+        <div className="form-group">
           <label>Email</label>
           <input name="email" value={candidate.email} onChange={handleChange} required />
         </div>
-        <div>
+        <div className="form-group">
           <label>Phone Number</label>
-          <input name="phoneNumber" value={candidate.phoneNumber} onChange={handleChange} />
+          <input name="phone" value={candidate.phone} onChange={handleChange} />
         </div>
-        <div>
+        <div className="form-group">
           <label>Best Time to Call</label>
-          <input name="callTimeInterval" value={candidate.callTimeInterval} onChange={handleChange} />
+          <input name="callAvailability" value={candidate.callAvailability} onChange={handleChange} />
         </div>
-        <div>
+        <div className="form-group">
           <label>LinkedIn Profile URL</label>
-          <input name="linkedInUrl" value={candidate.linkedInUrl} onChange={handleChange} />
+          <input name="linkedinUrl" value={candidate.linkedinUrl} onChange={handleChange} />
         </div>
-        <div>
+        <div className="form-group">
           <label>GitHub Profile URL</label>
           <input name="githubUrl" value={candidate.githubUrl} onChange={handleChange} />
         </div>
-        <div>
+        <div className="form-group">
           <label>Free Text Comment</label>
           <textarea name="freeTextComment" value={candidate.freeTextComment} onChange={handleChange} required></textarea>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" className="submit-button">Submit</button>
       </form>
-      <p>{message}</p>
+      <p className="message">{message}</p>
     </div>
   );
 };
