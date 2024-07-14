@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './CandidateForm.css'; 
+import './CandidateForm.css';
+import Sigma from '../assets/images/sig.png';
 
 const CandidateForm = () => {
   const [candidate, setCandidate] = useState({
@@ -36,39 +37,40 @@ const CandidateForm = () => {
 
   return (
     <div className="form-container">
-      
       <form onSubmit={handleSubmit} className="candidate-form">
-      <h1>Apply Now</h1>
+        <img src={Sigma} style={{height: 50, width: 180}} alt="Description" />
+        <h3 className='heading1'>Application form</h3>
+        <p>Please fill in the form below to register or update your application details.</p>
         <div className="form-group">
-          <label>First Name</label>
+          <label>First Name:<span className="required">*</span></label>
           <input name="firstName" value={candidate.firstName} onChange={handleChange} required />
         </div>
         <div className="form-group">
-          <label>Last Name</label>
+          <label>Last Name:<span className="required">*</span></label>
           <input name="lastName" value={candidate.lastName} onChange={handleChange} required />
         </div>
         <div className="form-group">
-          <label>Email</label>
+          <label>Email:<span className="required">*</span></label>
           <input name="email" value={candidate.email} onChange={handleChange} required />
         </div>
         <div className="form-group">
-          <label>Phone Number</label>
+          <label>Phone Number:</label>
           <input name="phone" value={candidate.phone} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label>Best Time to Call</label>
+          <label>Best Time to Call:</label>
           <input name="callAvailability" value={candidate.callAvailability} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label>LinkedIn Profile URL</label>
+          <label>LinkedIn Profile URL:</label>
           <input name="linkedinUrl" value={candidate.linkedinUrl} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label>GitHub Profile URL</label>
+          <label>GitHub Profile URL:</label>
           <input name="githubUrl" value={candidate.githubUrl} onChange={handleChange} />
         </div>
         <div className="form-group">
-          <label>Free Text Comment</label>
+          <label>Free Text Comment:<span className="required">*</span></label>
           <textarea name="freeTextComment" value={candidate.freeTextComment} onChange={handleChange} required></textarea>
         </div>
         <button type="submit" className="submit-button">Submit</button>
