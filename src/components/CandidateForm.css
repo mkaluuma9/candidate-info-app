@@ -6,7 +6,7 @@
   }
   
   .candidate-form {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 500px;
     padding: 50px 100px 50px 100px;
     background-color: #ffffff;
@@ -71,3 +71,13 @@
     font-weight: bold;
   }
   
+  .img{
+    height: 50px;
+    width: 180px;
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+  }

@@ -16,9 +16,32 @@ const CandidateForm = () => {
   });
 
   const [message, setMessage] = useState('');
+  const [errors, setErrors] = useState({
+    email: '',
+    phone: ''
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    
+    if (name === 'email') {
+      const emailError = value.includes('@') ? '' : 'Email must contain an @ sign';
+      setErrors({
+        ...errors,
+        email: emailError
+      });
+    }
+
+    
+    if (name === 'phone') {
+      const phoneError = /^\d*$/.test(value) ? '' : 'Phone number must contain only digits';
+      setErrors({
+        ...errors,
+        phone: phoneError
+      });
+    }
+
     setCandidate({
       ...candidate,
       [name]: value
@@ -27,18 +50,39 @@ const CandidateForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    
+    if (errors.email || errors.phone) {
+      setMessage('Please fix the validation errors');
+      return;
+    }
+
     try {
+      
       const response = await axios.post('http://localhost:3001/api/candidates/create', candidate);
+
+     
+      const newCandidateId = response.data.candidate.id; 
+      
+      localStorage.setItem('newCandidateId', newCandidateId);
+
       setMessage(response.data.message);
+      window.alert(response.data.message);
+      
+      
+      
+
     } catch (error) {
       setMessage(error.response.data.error);
     }
   };
 
+  
+
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit} className="candidate-form">
-        <img src={Sigma} style={{height: 50, width: 180}} alt="Description" />
+        <img src={Sigma} className='img' alt="Description" />
         <h3 className='heading1'>Application form</h3>
         <p>Please fill in the form below to register or update your application details.</p>
         <div className="form-group">
@@ -52,10 +96,12 @@ const CandidateForm = () => {
         <div className="form-group">
           <label>Email:<span className="required">*</span></label>
           <input name="email" value={candidate.email} onChange={handleChange} required />
+          {errors.email && <p className="error">{errors.email}</p>}
         </div>
         <div className="form-group">
           <label>Phone Number:</label>
           <input name="phone" value={candidate.phone} onChange={handleChange} />
+          {errors.phone && <p className="error">{errors.phone}</p>}
         </div>
         <div className="form-group">
           <label>Best Time to Call:</label>
@@ -75,7 +121,7 @@ const CandidateForm = () => {
         </div>
         <button type="submit" className="submit-button">Submit</button>
       </form>
-      <p className="message">{message}</p>
+     
     </div>
   );
 };
