@@ -9,6 +9,18 @@ RUNNING THE APPLICATION
 
 RUNNING THE BACKEND
 1. git checkout backend- This will take you into the back end branch where the back end code is.
+
+Connecting to the database
+1. Create a .env file in the config folder
+The .env file looks like:
+DB_HOST=localhost
+DB_USER=your_database_username
+DB_PASSWORD=your_database_password
+DB_NAME=candidate_info_db
+DB_PORT=5432
+These are the details to your postgres database
+
+
 2. npm install
 3. node app.js
 Application will run on http://localhost:3001
