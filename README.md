@@ -12,7 +12,8 @@ RUNNING THE BACKEND
 
 Connecting to the database
 1. Create a .env file in the config folder
-The .env file looks like:
+The .env file has:
+
 DB_HOST=localhost
 DB_USER=your_database_username
 DB_PASSWORD=your_database_password
@@ -21,8 +22,8 @@ DB_PORT=5432
 These are the details to your postgres database
 
 
-2. npm install
-3. node app.js
+3. npm install
+4. node app.js
 Application will run on http://localhost:3001
 
 RUNNING THE FRONTEND
