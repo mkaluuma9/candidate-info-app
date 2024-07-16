@@ -58,26 +58,13 @@ const CandidateForm = () => {
     }
 
     try {
-      
       const response = await axios.post('http://localhost:3001/api/candidates/create', candidate);
-
-     
-      const newCandidateId = response.data.candidate.id; 
-      
-      localStorage.setItem('newCandidateId', newCandidateId);
-
       setMessage(response.data.message);
       window.alert(response.data.message);
-      
-      
-      
-
     } catch (error) {
       setMessage(error.response.data.error);
     }
   };
-
-  
 
   return (
     <div className="form-container">
@@ -96,12 +83,17 @@ const CandidateForm = () => {
         <div className="form-group">
           <label>Email:<span className="required">*</span></label>
           <input name="email" value={candidate.email} onChange={handleChange} required />
+        </div>
+        <div className="form-group1">
           {errors.email && <p className="error">{errors.email}</p>}
         </div>
         <div className="form-group">
           <label>Phone Number:</label>
           <input name="phone" value={candidate.phone} onChange={handleChange} />
-          {errors.phone && <p className="error">{errors.phone}</p>}
+          
+        </div>
+        <div className="form-group1">
+        {errors.phone && <p className="error">{errors.phone}</p>}
         </div>
         <div className="form-group">
           <label>Best Time to Call:</label>
@@ -121,7 +113,7 @@ const CandidateForm = () => {
         </div>
         <button type="submit" className="submit-button">Submit</button>
       </form>
-     
+      
     </div>
   );
 };
