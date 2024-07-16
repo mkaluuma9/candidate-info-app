@@ -25,3 +25,34 @@ exports.createOrUpdateCandidate = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
+
+exports.getAllCandidates = async (req, res) => {
+    try {
+        const candidates = await Candidate.findAll();
+        res.status(200).json({ candidates });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+exports.deleteCandidateByEmail = async (req, res) => {
+    const { email } = req.body; 
+
+    try {
+        const candidate = await Candidate.findOne({
+            where: { email }
+        });
+
+        if (!candidate) {
+            return res.status(404).json({ message: 'Candidate not found' });
+        }
+
+        await candidate.destroy();
+        res.status(200).json({ message: 'Candidate deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};

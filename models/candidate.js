@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
   Candidate.init({
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
     phone: DataTypes.STRING,
     callAvailability: DataTypes.STRING,
     linkedinUrl: DataTypes.STRING,
